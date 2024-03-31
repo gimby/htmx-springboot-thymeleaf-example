@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <title>My TODO List</title>
+    <script src="https://unpkg.com/htmx.org@1.9.11"></script>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div th:fragment="error(message)" id="error" class="error" hx-swap-oob="true">
+        <span th:text="${message}"></span>
+    </div>
+
+    <div th:fragment="todos-list" class="todos-list">
+        <th:block th:each="todo : ${todos}">
+            <div th:replace="~{fragments :: todo-line(${todo})}">
+            </div>
+        </th:block>
+    </div>
+
+    <div th:fragment="todos-form" hx-swap-oob="true" id="todos-form">
+        <div class="line todo">
+            <div class="title">
+                <input type="text" name="new-todo" id="new-todo"/>
+            </div>
+            <div class="buttons">
+
+                <button
+                        hx-post="/todos"
+                        hx-include="#new-todo"
+                        hx-target=".todos-list">
+                    Add
+                </button>
+                <button
+                        hx-post="/todos/inline"
+                        hx-include="#new-todo"
+                        hx-target=".todos-list"
+                        hx-swap="beforeend">
+                    Add Inline
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <div class="line">
+        <button
+                hx-post="/todos/reset"
+                hx-target=".todos-list">
+            Reset
+        </button>
+    </div>
+</body>
+</html>

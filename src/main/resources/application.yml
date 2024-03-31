@@ -1,0 +1,12 @@
+spring:
+  application:
+    name: htmxthymeleaf
+  datasource:
+    url: jdbc:h2:mem:tododb
+    driverClassName: org.h2.Driver
+    username: sa
+    password:
+  sql:
+    init:
+      platform: h2
+      mode: always

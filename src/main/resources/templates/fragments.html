@@ -1,0 +1,12 @@
+<div class="todo line" th:fragment="todo-line(todo)">
+    <div class="id" th:text="${todo.id}">ID </div>
+    <div class="title" th:text="${todo.title}">Title </div>
+    <div class="buttons">
+        <button
+                th:attr="hx-delete=@{/todos/{id}(id=${todo.id})}"
+                hx-swap="outerHTML"
+                hx-target="closest .todo">
+            Delete
+        </button>
+    </div>
+</div>
